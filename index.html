@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="todoApp">
+
+            <h1>To Do App</h1>
+
+            <form class="inputArea">
+                <input type="text" id="taskInput" placeholder="Add a new task...">
+                <button type="submit" id="addTaskBtn">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </form>
+
+            <div class="todosContainer">
+                <ul id="taskList">
+                </ul>
+                <img class="emptyImg" src="images/emptyImage.jpeg" alt="empty">
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+
+<script src="script.js"></script>
+
+</html>
