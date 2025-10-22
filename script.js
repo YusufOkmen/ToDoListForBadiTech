@@ -12,16 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
         todosContainer.style.width = taskList.children.length > 0 ? "100%" : "50%";
     }
 
-    const addTask = (event) => {
-        event.preventDefault();
-        const taskText = taskInput.value.trim();
+    const addTask = (text, completed = false ) => {
+        const taskText = text || taskInput.value.trim();
         if (!taskText) {
             return;
         }
 
         const li = document.createElement("li");
         li.innerHTML = `
-            <input type="checkbox" class="checkbox">
+            <input type="checkbox" class="checkbox" $ {completed ? "checked" : " "}>
             <span>${taskText}</span>
             <div class="taskButtons">
                 <button class="editBtn">
@@ -72,10 +71,11 @@ document.addEventListener("DOMContentLoaded", () => {
         toggleEmptyState();
     };
 
-    addTaskBtn.addEventListener("click", addTask);
+    addTaskBtn.addEventListener("click", () => addTask());
     taskInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
-            addTask(e);
+            e.preventDefault();
+            addTask();
         }
     })
 

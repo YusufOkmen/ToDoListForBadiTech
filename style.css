@@ -203,6 +203,12 @@ body
     background: rgb(215, 57, 57);
  }
 
+#taskList li.completed span
+{
+    text-decoration: 2px line-through black;
+    color: black;
+}
+
 .emptyImg
 {
     width: 100px;
