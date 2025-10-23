@@ -12,6 +12,20 @@ document.addEventListener("DOMContentLoaded", () => {
         todosContainer.style.width = taskList.children.length > 0 ? "100%" : "50%";
     }
 
+    const loadTaskFromLocalStorage = () => {
+        const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        savedTasks.forEach(({ text, completed }) => addTask(text, completed, false));
+        toggleEmptyState(); 
+    }
+
+    const saveTaskLocalStorage = () => {
+        const tasks = Array.from(taskList.querySelectorAll("li")).map(li => ({
+            text: li.querySelector("span").textContent,
+            completed: li.querySelector(".checkbox").checked
+        }))
+        localStorage.setItem("tasks", JSON.stringify(tasks)); 
+    };
+
     const addTask = (text, completed = false ) => {
         const taskText = text || taskInput.value.trim();
         if (!taskText) {
@@ -20,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const li = document.createElement("li");
         li.innerHTML = `
-            <input type="checkbox" class="checkbox" $ {completed ? "checked" : " "}>
+            <input type="checkbox" class="checkbox" ${completed ? "checked" : " "}>
             <span>${taskText}</span>
             <div class="taskButtons">
                 <button class="editBtn">
@@ -49,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
             editBtn.disabled = isChecked;
             editBtn.style.opacity = isChecked ? "0.5" : "1";
             editBtn.style.pointerEvents = isChecked ? "none" : "auto";
+            saveTaskLocalStorage();
         })
 
         editBtn.addEventListener("click", () => {
@@ -56,6 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 taskInput.value = li.querySelector
                 ("span").textContent;
                 li.remove();
+                saveTaskLocalStorage();
             }
         })
 
@@ -64,20 +80,26 @@ document.addEventListener("DOMContentLoaded", () => {
         deleteBtn.addEventListener("click", () => {
             li.remove();
             toggleEmptyState();
-        })
+            saveTaskLocalStorage();
+        });
 
         taskList.appendChild(li)
         taskInput.value = " ";
         toggleEmptyState();
+        saveTaskLocalStorage();
     };
 
-    addTaskBtn.addEventListener("click", () => addTask());
+    addTaskBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        addTask();
+    });
     taskInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
             addTask();
         }
-    })
+    });
 
+    loadTaskFromLocalStorage();
 
-})
+});
