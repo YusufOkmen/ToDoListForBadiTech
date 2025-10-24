@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Makes empty image display and disappear
         emptyImage.style.display = taskList.children.length === 0 ? "block" : "none";
         // Controls the width of the todosContainer based on the listed tasks
-        todosContainer.style.width = taskList.children.length > 0 ? "100%" : "50%";
     }
 
     const loadTaskFromLocalStorage = () => {

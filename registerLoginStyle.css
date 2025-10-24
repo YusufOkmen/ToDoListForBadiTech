@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Jost", sans-serif;
+}
+
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url(images/backgroundImage.jpg)
+    no-repeat center center/cover;
+}
+
+.container
+{
+    margin: 0 15px;
+
+}
+
+.formBox
+{
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+    border: 3px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(10px);
+}
+
+.formBox h1
+{
+    font-size: 2rem;
+    color: white;
+}
+
+
+input
+{
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
+p
+{
+    color: white;
+    font-size: 1rem;
+}
+
+.inputArea button
+{
+    display: block;
+    margin: 0 auto 20px auto;
+    text-align: center;
+    width: 100%;
+    padding: 8px;
+    border-radius: 10px;
+    color: white;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.inputArea input::placeholder
+{
+    color: rgb(242, 216, 216);
+}   
+
+.inputArea button:hover
+{
+    transform: scale(1.1);
+    background: rgb(222, 113, 113)
+}

@@ -193,9 +193,45 @@ body
     transform: scale(1.2);
 }
 
+
+.header-auth {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px; /* Space above the h1 */
+}
+
+.user-info {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    /* Make the email prominent */
+    font-weight: 500; 
+}
+
+.logoutBtn {
+    padding: 6px 10px;
+    border-radius: 15px;
+    color: white;
+    font-size: 0.9rem;
+    background: rgba(24, 24, 24, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.logoutBtn:hover {
+    background: rgb(215, 57, 57); /* Use a bold color for logout */
+    border-color: rgb(215, 57, 57);
+    transform: scale(1.2);
+}
+
+
+
 .taskButtons .editBtn
 {
     background: rgb(208, 208, 94);
+    margin-left: 10px;
 }
 
 .taskButtons .deleteBtn
@@ -214,3 +250,19 @@ body
     width: 100px;
     border-radius: 20px;
 }
+
+/* ----------------------------------------------------------------------------------------- */
+
+.formInput
+{
+    width: 100%;
+    padding: 12px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    color: white;
+    margin-bottom: 20px;
+}
+
