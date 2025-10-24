@@ -214,14 +214,14 @@ body
     border-radius: 15px;
     color: white;
     font-size: 0.9rem;
-    background: rgba(24, 24, 24, 0.2);
+    background: rgba(162, 144, 144, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .logoutBtn:hover {
-    background: rgb(215, 57, 57); /* Use a bold color for logout */
+    background:     rgb(222, 115, 115); /* Use a bold color for logout */
     border-color: rgb(215, 57, 57);
     transform: scale(1.2);
 }
@@ -266,3 +266,8 @@ body
     margin-bottom: 20px;
 }
 
+.header-auth
+{
+    display: flex;
+    justify-content: space-between;
+}

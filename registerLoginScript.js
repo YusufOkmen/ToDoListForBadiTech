@@ -71,6 +71,10 @@ function handleRegistration(event) {
         password: password // ⚠️ Reminder: For a real app, hash this password!
     };
 
+    users.push(newUser);
+
+    localStorage.setItem('users', JSON.stringify(users));
+
     // 6. Success!
     Swal.fire({
         icon: 'success',
@@ -136,3 +140,59 @@ function handleLogin(event) {
         loginPasswordInput.value = '';
     }
 };
+
+// For logout
+
+// Get references to elements specific to index.html
+const userEmailDisplay = document.getElementById('userEmailDisplay');
+const logoutBtn = document.getElementById('logoutBtn');
+
+
+/**
+ * Checks if a user is logged in. If not, redirects to login.html.
+ * @returns {object|null} The logged-in user object or null.
+ */
+function checkAuthentication() {
+    const loggedInUserString = localStorage.getItem('loggedInUser');
+
+    if (!loggedInUserString) {
+        // If no user is logged in, redirect to the login page
+        window.location.href = 'login.html';
+        return null;
+    }
+
+    try {
+        return JSON.parse(loggedInUserString);
+    } catch (e) {
+        console.error('Error parsing loggedInUser from localStorage:', e);
+        localStorage.removeItem('loggedInUser'); // Clear invalid data
+        window.location.href = 'login.html';
+        return null;
+    }
+}
+
+/**
+ * Handles the logout process: clears session data and redirects.
+ */
+function handleLogout() {
+    // 1. Remove the logged-in user data from local storage
+    localStorage.removeItem('loggedInUser');
+    
+    // 2. Redirect the user back to the login page
+    window.location.href = 'login.html';
+}
+
+// Only run the index.html logic if the required elements are present
+if (userEmailDisplay && logoutBtn) {
+    
+    // 1. Check Auth & Get User Data
+    const currentUser = checkAuthentication();
+
+    // 2. If user is successfully authenticated, update the UI
+    if (currentUser) {
+        userEmailDisplay.textContent = `Logged in as: ${currentUser.email}`;
+    }
+
+    // 3. Attach Logout Event Listener
+    logoutBtn.addEventListener('click', handleLogout);
+}
