@@ -194,13 +194,36 @@ body
 }
 
 
-.header-auth {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px; /* Space above the h1 */
+.header-auth-container {
+    /* Changed from absolute to fixed */
+    position: fixed; 
+    top: 0; /* Stick it to the top edge */
+    left: 0; /* Stick it to the left edge */
+    right: 0; /* Stick it to the right edge, making it full width */
+    transform: none; /* Remove transform since we're using left/right/top: 0 */
+    z-index: 100; /* Ensure it stays above everything, use a high number */
+    width: 100%; /* Ensure it spans the full width */
+    max-width: none; /* Allow it to take up the full screen width */
+    padding: 0; /* Remove padding from the container */
 }
+
+.header-auth {
+    /* Set max-width here to keep content centered like before */
+    max-width: 400px; 
+    /* Center the content block within the full-width fixed container */
+    margin: 0 auto; 
+    padding: 10px 20px; /* Adjust padding for aesthetics */
+    border-radius: 0 0 10px 10px; /* Keep bottom corners rounded, remove top corners */
+    /* Ensure the background and border still look good */
+    backdrop-filter: blur(8px);
+    background: #E07951; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-top: none; /* Remove top border */
+    align-items: center;
+}
+
 
 .user-info {
     font-size: 0.9rem;
@@ -214,7 +237,7 @@ body
     border-radius: 15px;
     color: white;
     font-size: 0.9rem;
-    background: rgba(162, 144, 144, 0.2);
+    background: rgba(255, 255, 255, 0.458);
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -247,8 +270,7 @@ body
 
 .emptyImg
 {
-    width: 100px;
-    border-radius: 20px;
+    width: 150px;
 }
 
 /* ----------------------------------------------------------------------------------------- */
