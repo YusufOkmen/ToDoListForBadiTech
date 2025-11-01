@@ -293,3 +293,110 @@ body
     display: flex;
     justify-content: space-between;
 }
+
+
+/* --------------------------------------- */
+/* POMODORO */
+
+.pomodoroApp
+{
+    max-width: 500px;
+}
+
+.buttonContainer
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.pomodoroButton
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 0.2rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    flex-grow: 1; /* Allows each button to equally share the available space */
+    font-size: 0.9rem;
+}
+
+.pomodoroButton:hover
+{
+    background:     rgb(222, 115, 115); /* Use a bold color for logout */
+    transform: scale(1.05) ;
+}
+
+.pomodoroButton.active-session {
+    /* Highlight the currently active session button */
+    background: #E07951; /* Use your header color or another strong highlight color */
+    border-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}   
+
+.start-stop-btn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.buttons
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+main
+{
+    display: flex;
+    align-items: center;
+    width: 18rem;
+    height: 18rem;
+    border-radius: 50%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 2rem;    
+}
+
+.time
+{
+    font-size: 5rem !important;
+    margin: auto;
+}
+
+.pomodoro
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    text-align: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+}

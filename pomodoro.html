@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        #long-break-timer, #short-break-timer
+        {
+            display: none;
+        }
+
+        #pomodoro-timer
+        {
+            display: block;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="header-auth-container">
+        <div class="header-auth">
+            <p id="userEmailDisplay" class="user-info"></p>
+
+            <button id="logoutBtn" class="logoutBtn">
+                Logout <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="todoApp pomodoroApp">
+
+            <h1>Pomodoro</h1>
+
+            <div class="buttonContainer">
+                <button class="pomodoroButton" id="pomodoro-session" data-target-id="pomodoro-timer">Pomodoro</button>
+                <button class="pomodoroButton" id="short-break-session" data-target-id="short-break-timer">Short Break</button>
+                <button class="pomodoroButton" id="long-break-session" data-target-id="long-break-timer">Long Break</button>
+            </div>
+
+            <main>
+                <div class="pomodoro">
+
+                    <h1 id="pomodoro-timer" class="timer-display" data-duration="25">25.00</h1>
+                    <h1 id="long-break-timer" class="timer-display" data-duration="10">10.00</h1>
+                    <h1 id="short-break-timer" class="timer-display" data-duration="5">5.00</h1>
+
+                </div>
+            </main>
+
+            <div class="buttons">
+                <button class="pomodoroButton start-stop-btn" id="start">START</button>
+                <button class="pomodoroButton start-stop-btn" id="stop">STOP</button>
+             </div>
+
+        </div>
+    </div>
+
+
+
+</body>
+
+
+<script src="registerLoginScript.js"></script>
+<script src="pomodoroScripts.js"></script>
+</html>
