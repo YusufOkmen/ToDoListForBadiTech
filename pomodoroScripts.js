@@ -27,6 +27,7 @@ function stopTimer() {
     }
     isRunning = false;
     startButton.disabled = false;
+    startButton.textContent = "START";
 }
 
 
@@ -52,6 +53,7 @@ function showOnly(targetElementId) {
         // 4. Reset timeLeft to the new timer's initial duration
         timeLeft = parseInt(currentTimerElement.dataset.duration);
         updateDisplay(timeLeft);
+        
     }
 }
 
@@ -66,6 +68,7 @@ function countdown() {
         updateDisplay(0);
         
         alert("Countdown Finished!");
+        startButton.textContent = "START"
 
         // Reset the time for the finished timer
         timeLeft = parseInt(currentTimerElement.dataset.duration);
