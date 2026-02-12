@@ -246,7 +246,7 @@ body
 .logoutBtn:hover {
     background:     rgb(222, 115, 115); /* Use a bold color for logout */
     border-color: rgb(215, 57, 57);
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 

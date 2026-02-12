@@ -6,16 +6,22 @@ let timerInterval = null;
 let isRunning = false;
 
 let currentTimerElement = document.getElementById('pomodoro-timer'); 
-let timeLeft = parseInt(currentTimerElement.dataset.duration);
+let timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
 
 /**
  * Updates the text content of the currently active timer display.
  * @param {number} timeInSeconds - The time to display.
  */
 function updateDisplay(timeInSeconds) {
-    const displayTime = timeInSeconds.toFixed(2);
-    currentTimerElement.textContent = displayTime;
-}
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+
+    // Add leading zeros (e.g., "5:9" becomes "05:09")
+    const formattedTime = 
+        `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    currentTimerElement.textContent = formattedTime;
+}   
 
 
 /**
@@ -51,7 +57,7 @@ function showOnly(targetElementId) {
         currentTimerElement = targetTimer; // Update the global target reference
 
         // 4. Reset timeLeft to the new timer's initial duration
-        timeLeft = parseInt(currentTimerElement.dataset.duration);
+        timeLeft = parseInt(currentTimerElement.dataset.duration) * 60; 
         updateDisplay(timeLeft);
         
     }
