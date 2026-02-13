@@ -77,7 +77,7 @@ function countdown() {
         startButton.textContent = "START"
 
         // Reset the time for the finished timer
-        timeLeft = parseInt(currentTimerElement.dataset.duration);
+        timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
         updateDisplay(timeLeft);
         return; 
     }

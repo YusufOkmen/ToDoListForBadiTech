@@ -5,6 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyImage = document.querySelector(".emptyImg");
     const todosContainer = document.querySelector(".todosContainer");
 
+
+
+
     const toggleEmptyState = () => {
         // Makes empty image display and disappear
         emptyImage.style.display = taskList.children.length === 0 ? "block" : "none";

@@ -11,7 +11,22 @@ const loginEmailInput = document.getElementById('loginEmail');
 const loginPasswordInput = document.getElementById('loginPassword');
 const loginButton = document.getElementById('loginBtn');
 
+//For directing.html
+const todoBtn = document.querySelector('.directingButton:nth-of-type(1)'); // First button
+const pomodoroBtn = document.querySelector('.directingButton:nth-of-type(2)'); // Second button
 
+if (todoBtn) {
+    todoBtn.addEventListener('click', () => {
+        window.location.href = 'index.html'; // Or whatever your To-Do HTML file is named
+    });
+}
+
+if (pomodoroBtn) {
+    pomodoroBtn.addEventListener('click', () => {
+        window.location.href = 'pomodoro.html'; // Or whatever your Pomodoro HTML file is named
+    });
+}
+//For directing.html
 
 // Only attach the registration handler if the button exists
 if (registerButton) {
@@ -127,7 +142,7 @@ function handleLogin(event) {
             showConfirmButton: false,
             timer: 1500
         }).then(() => {
-            window.location.href = 'index.html'; 
+            window.location.href = 'directing.html'; 
         });
 
     } else {

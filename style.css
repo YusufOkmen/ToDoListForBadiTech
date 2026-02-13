@@ -400,3 +400,55 @@ main
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.3);
 }
+
+/* Reuse the frosted glass look from your other apps */
+.directingDiv {
+    width: 100%;
+    max-width: 500px;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    
+    /* The Glass Effect */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+}
+
+/* Style the Welcome Header */
+.wHeader {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Style the Navigation Buttons */
+.directingButton {
+    width: 100%;           /* Full width buttons look cleaner here */
+    padding: 15px;
+    font-size: 1.2rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: "Jost", sans-serif;
+    font-weight: 500;
+}
+
+/* Hover Effects for Buttons */
+.directingButton:hover {
+    background: #E07951;  /* Matching your header color */
+    transform: translateY(-3px); /* Slight lift */
+    box-shadow: 0 5px 15px rgba(224, 121, 81, 0.4);
+    border-color: #E07951;
+}
