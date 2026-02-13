@@ -1,6 +1,9 @@
 const allTimersDisplays = document.querySelectorAll('.timer-display');
 const allButtons = document.querySelectorAll('button[id$="-session"]');
 const startButton = document.getElementById('start');
+const stopButton = document.getElementById('stop');
+const alarmSound = document.getElementById('alarm-sound');
+const stopAlarmBtn = document.getElementById('stop-alarm-btn');
 
 let timerInterval = null;
 let isRunning = false;
@@ -73,13 +76,14 @@ function countdown() {
         stopTimer(); // Clear interval and reset state
         updateDisplay(0);
         
-        alert("Countdown Finished!");
-        startButton.textContent = "START"
+        alarmSound.play();  
 
-        // Reset the time for the finished timer
-        timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
-        updateDisplay(timeLeft);
-        return; 
+        stopAlarmBtn.style.display = "block";
+
+        startButton.style.display = "none";
+        stopButton.style.display = "none";
+        
+        return;
     }
 
     // Decrease time and update display
@@ -104,6 +108,26 @@ function startCountdown() {
     timerInterval = setInterval(countdown, 1000); 
 }
 
+function dismissAlarm() {
+    // 1. Pause the audio
+    alarmSound.pause();
+    
+    // 2. Rewind audio to the start (so it's ready for next time)
+    alarmSound.currentTime = 0;
+
+    // 3. Hide the Stop Alarm button
+    stopAlarmBtn.style.display = "none";
+
+    // 4. Show the Start button again
+    startButton.style.display = "block";
+    stopButton.style.display = "block";
+    startButton.textContent = "START";
+
+    // 5. Reset the timer value (rewind the clock)
+    timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
+    updateDisplay(timeLeft);
+}
+
 // --- Event Handlers ---
 
 // 1. Attach listener to all Display buttons (Switching logic)
@@ -118,3 +142,17 @@ allButtons.forEach(button => {
 startButton.addEventListener('click', startCountdown);
 
 updateDisplay(timeLeft);
+
+// Don't forget to listen for the click!
+if (stopAlarmBtn) {
+    stopAlarmBtn.addEventListener('click', dismissAlarm);
+}
+
+// 3. Attach listener to the Stop button
+if (stopButton) {
+    stopButton.addEventListener('click', () => {
+        stopTimer();
+        // Optional: Make it clear the timer is paused
+        startButton.textContent = "RESUME"; 
+    });
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,19 +13,18 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
-        #long-break-timer, #short-break-timer
-        {
+        #long-break-timer,
+        #short-break-timer {
             display: none;
         }
 
-        #pomodoro-timer
-        {
+        #pomodoro-timer {
             display: block;
         }
-        
     </style>
 
 </head>
+
 <body>
     <div class="header-auth-container">
         <div class="header-auth">
@@ -43,8 +43,10 @@
 
             <div class="buttonContainer">
                 <button class="pomodoroButton" id="pomodoro-session" data-target-id="pomodoro-timer">Pomodoro</button>
-                <button class="pomodoroButton" id="short-break-session" data-target-id="short-break-timer">Short Break</button>
-                <button class="pomodoroButton" id="long-break-session" data-target-id="long-break-timer">Long Break</button>
+                <button class="pomodoroButton" id="short-break-session" data-target-id="short-break-timer">Short
+                    Break</button>
+                <button class="pomodoroButton" id="long-break-session" data-target-id="long-break-timer">Long
+                    Break</button>
             </div>
 
             <main>
@@ -60,10 +62,17 @@
             <div class="buttons">
                 <button class="pomodoroButton start-stop-btn" id="start">START</button>
                 <button class="pomodoroButton start-stop-btn" id="stop">STOP</button>
-             </div>
+                <button id="stop-alarm-btn"
+                    class="pomodoroButton start-stop-btn" style="display: none;">
+                    REWIND
+                </button>
+            </div>
 
         </div>
     </div>
+
+    <audio id="alarm-sound" src="src/alexis_gaming_cam-bell-notification-337658.mp3" loop></audio>
+
 
 
 
@@ -72,4 +81,5 @@
 
 <script src="registerLoginScript.js"></script>
 <script src="pomodoroScripts.js"></script>
+
 </html>
