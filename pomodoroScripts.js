@@ -7,6 +7,7 @@ const stopAlarmBtn = document.getElementById('stop-alarm-btn');
 
 let timerInterval = null;
 let isRunning = false;
+let endTime = null;
 
 let currentTimerElement = document.getElementById('pomodoro-timer'); 
 let timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
@@ -72,6 +73,15 @@ function showOnly(targetElementId) {
  * The core function executed every second.
  */
 function countdown() {
+
+    // 1. Calculate the REAL time left by comparing Now vs. Target
+    const now = Date.now();
+    const secondsLeft = Math.ceil((endTime - now) / 1000);
+
+    // 2. Sync it with your global variable so the pause button still works
+    timeLeft = secondsLeft;
+
+
     if (timeLeft <= 0) {
         stopTimer(); // Clear interval and reset state
         updateDisplay(0);
@@ -87,7 +97,6 @@ function countdown() {
     }
 
     // Decrease time and update display
-    timeLeft -= 1;
     updateDisplay(timeLeft);
 }
 
@@ -98,6 +107,12 @@ function startCountdown() {
     if (isRunning) {
         return; // Already running
     }
+
+    // --- NEW LOGIC START ---
+    // Calculate exactly when the timer should end based on current timeLeft
+    // Date.now() gives milliseconds, so we multiply timeLeft by 1000
+    endTime = Date.now() + (timeLeft * 1000);
+    // --- NEW LOGIC END ---
     
     // Set state and disable start button
     isRunning = true;
