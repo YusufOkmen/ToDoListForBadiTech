@@ -25,6 +25,9 @@ function updateDisplay(timeInSeconds) {
         `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
     currentTimerElement.textContent = formattedTime;
+
+    // Tab Title Feature for #5 issue. 
+    document.title = `(${formattedTime}) Do!Do!`;
 }   
 
 
