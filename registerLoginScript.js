@@ -83,7 +83,7 @@ function handleRegistration(event) {
     // 5. Create New User Object
     const newUser = {
         email: email,
-        password: password // ⚠️ Reminder: For a real app, hash this password!
+        password: password
     };
 
     users.push(newUser);
@@ -138,7 +138,7 @@ function handleLogin(event) {
         Swal.fire({
             icon: 'success',
             title: 'Welcome Back!',
-            text: 'Login successful! Redirecting to your To-Do List...',
+            text: 'Login successful! Redirecting...',
             showConfirmButton: false,
             timer: 1500
         }).then(() => {

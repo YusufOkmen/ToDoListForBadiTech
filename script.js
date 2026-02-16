@@ -5,8 +5,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyImage = document.querySelector(".emptyImg");
     const todosContainer = document.querySelector(".todosContainer");
 
+// 1. Get the logged-in user from the session
+const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
+// 2. Security Check: If no user is found, kick them back to login
+if (!currentUser) {
+    window.location.href = "login.html";
+}
 
+// 3. Create a unique "Key" for this specific user
+// Example result: "tasks_yusuf@gmail.com"
+const userTasksKey = `tasks_${currentUser.email}`;
 
     const toggleEmptyState = () => {
         // Makes empty image display and disappear
@@ -15,8 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const loadTaskFromLocalStorage = () => {
-        const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
-        savedTasks.forEach(({ text, completed }) => addTask(text, completed, false));
+        const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
+        savedTasks.forEach(({ text, completed }) => addTask(text, completed));
         toggleEmptyState(); 
     }
 
@@ -25,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             text: li.querySelector("span").textContent,
             completed: li.querySelector(".checkbox").checked
         }))
-        localStorage.setItem("tasks", JSON.stringify(tasks)); 
+        localStorage.setItem(userTasksKey, JSON.stringify(tasks));
     };
 
     const addTask = (text, completed = false ) => {
@@ -51,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const checkbox = li.querySelector(".checkbox");
         const editBtn = li.querySelector(".editBtn");
+        const deleteBtn = li.querySelector(".deleteBtn");
 
         if (completed) {
             li.classList.add("completed");
@@ -70,14 +80,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
         editBtn.addEventListener("click", () => {
             if(!checkbox.checked) {
-                taskInput.value = li.querySelector
-                ("span").textContent;
+                taskInput.value = li.querySelector("span").textContent;
                 li.remove();
                 saveTaskLocalStorage();
             }
         })
-
-        const deleteBtn = li.querySelector(".deleteBtn");
 
         deleteBtn.addEventListener("click", () => {
             li.remove();
@@ -95,6 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         addTask();
     });
+    
     taskInput.addEventListener("keypress", (e) => {
         if (e.key === "Enter") {
             e.preventDefault();
