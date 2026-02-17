@@ -5,6 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const emptyImage = document.querySelector(".emptyImg");
     const todosContainer = document.querySelector(".todosContainer");
 
+    const goBackBtn = document.getElementById("goBackBtn");
+
+    if (goBackBtn) {
+        goBackBtn.addEventListener("click", () => {
+            // This mimics the browser's "Back" button
+            window.history.back();
+        });
+    }
+
 // 1. Get the logged-in user from the session
 const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 
