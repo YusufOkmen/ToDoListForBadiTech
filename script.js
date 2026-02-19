@@ -110,6 +110,14 @@ document.addEventListener("DOMContentLoaded", () => {
         taskInput.value = " ";
         toggleEmptyState();
         saveTaskLocalStorage();
+
+        // Find whichever button currently has the purple highlight
+        const activeFilterBtn = document.querySelector(".activeFilter");
+        
+        // If one exists, simulate a click on it to re-run the filter logic!
+        if (activeFilterBtn) {
+            activeFilterBtn.click();
+        }
     };
 
     addTaskBtn.addEventListener("click", (e) => {
