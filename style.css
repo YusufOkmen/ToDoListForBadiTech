@@ -489,10 +489,10 @@ main
     border-radius: 6px;
     color: white;
     font-size: 1.1rem;
-    background: rgb(222, 115, 115);
+    background: rgb(206, 129, 129);
     border: 2px solid rgba(255, 255, 255, 0.18);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.4s ease;
     white-space: nowrap;
     flex-grow: 1; /* Allows each button to equally share the available space */
     font-size: 0.9rem;
@@ -509,4 +509,19 @@ main
     background-color: rgba(255, 255, 255, 0.5);
     padding: 1rem;
     border-radius: 10px;
+}
+
+.activeFilter
+{
+    padding: 0.7rem 0.7rem;
+    border-radius: 6px;
+    color: white;
+    font-size: 1.1rem;
+    background: rgb(226, 79, 79);
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    white-space: nowrap;
+    flex-grow: 1; /* Allows each button to equally share the available space */
+    font-size: 0.9rem;
 }

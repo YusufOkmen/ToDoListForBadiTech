@@ -128,7 +128,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //Filtering the tasks (All, Active and Completed)
 
-    const filterTasks = (filterType) => {
+    const filterTasks = (filterType, clickedButton) => {
+
+        //Active filter highlighting
+        //Grab all three buttons
+        const allFilterButtons = document.querySelectorAll(".taskManagerButton");
+
+        //Remove activeFilter class from every button
+        allFilterButtons.forEach(btn => btn.classList.remove("activeFilter"));
+
+        //Add activeFilter class only to recently clicked button
+        clickedButton.classList.add("activeFilter");
+
+
         //Getting every tasks on the screen
         const allTasks = document.querySelectorAll(".todosContainer li");
 
@@ -161,9 +173,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (filterAllBtn && filterActiveBtn && filterCompletedBtn) {
-        filterAllBtn.addEventListener("click", () => filterTasks("all"));
-        filterActiveBtn.addEventListener("click", () => filterTasks("active"));
-        filterCompletedBtn.addEventListener("click", () => filterTasks("completed"));
+        filterAllBtn.addEventListener("click", () => filterTasks("all", filterAllBtn));
+        filterActiveBtn.addEventListener("click", () => filterTasks("active", filterActiveBtn));
+        filterCompletedBtn.addEventListener("click", () => filterTasks("completed", filterCompletedBtn));
     }
 
 
