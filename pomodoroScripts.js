@@ -9,7 +9,7 @@ let timerInterval = null;
 let isRunning = false;
 let endTime = null;
 
-let currentTimerElement = document.getElementById('pomodoro-timer'); 
+let currentTimerElement = document.getElementById('pomodoro-timer');
 let timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
 
 /**
@@ -21,14 +21,14 @@ function updateDisplay(timeInSeconds) {
     const seconds = timeInSeconds % 60;
 
     // Add leading zeros (e.g., "5:9" becomes "05:09")
-    const formattedTime = 
+    const formattedTime =
         `${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 
     currentTimerElement.textContent = formattedTime;
 
     // Tab Title Feature for #5 issue. 
     document.title = `(${formattedTime}) Do!Do!`;
-}   
+}
 
 
 /**
@@ -41,6 +41,10 @@ function stopTimer() {
     isRunning = false;
     startButton.disabled = false;
     startButton.textContent = "START";
+
+    stopButton.disabled = true;
+    stopButton.style.opacity = "0.5";
+    stopButton.style.pointerEvents = "none";
 }
 
 
@@ -55,7 +59,7 @@ function showOnly(targetElementId) {
     // 2. Hide all timer elements
     allTimersDisplays.forEach(timer => {
         timer.style.display = "none";
-    });     
+    });
 
     // 3. Find and display the specific timer
     const targetTimer = document.getElementById(targetElementId);
@@ -64,9 +68,9 @@ function showOnly(targetElementId) {
         currentTimerElement = targetTimer; // Update the global target reference
 
         // 4. Reset timeLeft to the new timer's initial duration
-        timeLeft = parseInt(currentTimerElement.dataset.duration) * 60; 
+        timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
         updateDisplay(timeLeft);
-        
+
     }
 }
 
@@ -88,14 +92,14 @@ function countdown() {
     if (timeLeft <= 0) {
         stopTimer(); // Clear interval and reset state
         updateDisplay(0);
-        
-        alarmSound.play();  
+
+        alarmSound.play();
 
         stopAlarmBtn.style.display = "block";
 
         startButton.style.display = "none";
         stopButton.style.display = "none";
-        
+
         return;
     }
 
@@ -116,20 +120,26 @@ function startCountdown() {
     // Date.now() gives milliseconds, so we multiply timeLeft by 1000
     endTime = Date.now() + (timeLeft * 1000);
     // --- NEW LOGIC END ---
-    
+
     // Set state and disable start button
     isRunning = true;
-    startButton.textContent = "Running...";
     startButton.disabled = true;
+    startButton.textContent = "Running...";
+    startButton.style.opacity = "0.5";
+    startButton.style.pointerEvents = "none";
+
+    stopButton.disabled = false;
+    stopButton.style.opacity = "1";
+    stopButton.style.pointerEvents = "auto";
 
     // Start the interval
-    timerInterval = setInterval(countdown, 1000); 
+    timerInterval = setInterval(countdown, 1000);
 }
 
 function dismissAlarm() {
     // 1. Pause the audio
     alarmSound.pause();
-    
+
     // 2. Rewind audio to the start (so it's ready for next time)
     alarmSound.currentTime = 0;
 
@@ -149,7 +159,7 @@ function dismissAlarm() {
 // --- Event Handlers ---
 
 // 1. Attach listener to all Display buttons (Switching logic)
-allButtons.forEach(button => {  
+allButtons.forEach(button => {
     button.addEventListener("click", (event) => {
         const targetId = event.currentTarget.dataset.targetId;
         showOnly(targetId);
@@ -161,6 +171,10 @@ startButton.addEventListener('click', startCountdown);
 
 updateDisplay(timeLeft);
 
+stopButton.disabled = true;
+stopButton.style.opacity = "0.5";
+stopButton.style.pointerEvents = "none";
+
 // Don't forget to listen for the click!
 if (stopAlarmBtn) {
     stopAlarmBtn.addEventListener('click', dismissAlarm);
@@ -171,6 +185,8 @@ if (stopButton) {
     stopButton.addEventListener('click', () => {
         stopTimer();
         // Optional: Make it clear the timer is paused
-        startButton.textContent = "RESUME"; 
+        startButton.textContent = "RESUME";
+        startButton.style.opacity = "1";
+        startButton.style.pointerEvents = "auto";
     });
 }

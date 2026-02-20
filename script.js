@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (goBackBtn) {
         goBackBtn.addEventListener("click", () => {
             // This mimics the browser's "Back" button
-            window.history.back();
+            window.location.href = "directing.html"
         });
     }
 
