@@ -4,6 +4,13 @@ const startButton = document.getElementById('start');
 const stopButton = document.getElementById('stop');
 const alarmSound = document.getElementById('alarm-sound');
 const stopAlarmBtn = document.getElementById('stop-alarm-btn');
+const taskSelect = document.getElementById("activeTaskSelect");
+const taskTimeDisplay= document.getElementById("taskTimeDisplay")
+const timeSpentValue = document.getElementById("timeSpentValue");
+
+//Get the current user to find their specific tasks
+const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+const userTasksKey = currentUser ? `tasks_${currentUser.email}` : "null";
 
 let timerInterval = null;
 let isRunning = false;
@@ -11,6 +18,56 @@ let endTime = null;
 
 let currentTimerElement = document.getElementById('pomodoro-timer');
 let timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
+
+
+//Load tasks into the dropdown
+function loadTasksIntoDropdown() {
+    if (!userTasksKey) {
+        return;
+    }
+
+    const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
+
+    //Clear existing options (except the default one)
+    taskSelect.innerHTML = '<optin value="">-- Select a task --</option>';
+
+    //Loop through tasks and only add the ones that are not completed
+    savedTasks.forEach((task, index) => {
+        if (!task.completed) {
+            const option = document.createElement("option");
+            option.value = index; //We use the array index to identify the task later
+            option.textContent = task.text;
+
+            //If the task doesn't have a timeSpent property yet, give it one
+            if (task.timeSpent === undefined) {
+                task.timeSpent = 0;
+            }
+
+            //Store the time spent right on the option element for easy access
+            option.dataset.timeSpent = task.timeSpent;
+
+            taskSelect.appendChild(option);
+        }
+    });
+};
+
+loadTasksIntoDropdown();
+
+taskSelect.addEventListener("change", (e) => {
+    const selectedOption =taskSelect.options[taskSelect.selectedIndex];
+
+    if (taskSelect.value === "") {
+        //If they select the default, hide the time
+        taskTimeDisplay.style.display = "none";
+    } else {
+        //Show the time spent for the chosen task
+        taskTimeDisplay.style.display = "block";
+
+        //Grab the time data we attached to the option
+        const minutesSpent = selectedOption.dataset.timeSpent || 0;
+        timeSpentValue.textContent = minutesSpent;
+    }
+});
 
 /**
  * Updates the text content of the currently active timer display.
