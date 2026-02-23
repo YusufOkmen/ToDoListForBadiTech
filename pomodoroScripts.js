@@ -69,6 +69,51 @@ taskSelect.addEventListener("change", (e) => {
     }
 });
 
+function addTimeToSelectedTask() {
+    // Check if the user actually selected a task from the dropdown
+    const taskSelect = document.getElementById("activeTaskSelect");
+    const selectedIndex = taskSelect.value;
+
+    if (selectedIndex === "") {
+        return;
+    }
+
+    // Open the database (LocalStorage) to get the user's tasks
+    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!currentUser) {
+        return;
+    }
+
+    const userTasksKey = `tasks_${currentUser.email}`;
+    let savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
+
+    // Figure out how many minutes to add 
+    // Grab the duration of the timer just finished
+    const minutesCompleted = parseInt(currentTimerElement.dataset.duration);
+
+    // Go to the exact same task using the index, and add the minutes
+    // Include safety check just in case
+    if (savedTasks[selectedIndex].timeSpent === undefined) {
+        savedTasks[selectedIndex].timeSpent = 0;
+    }
+    savedTasks[selectedIndex].timeSpent += minutesCompleted;
+
+    // Save the updated list back into LocalStorage
+    localStorage.setItem(userTasksKey, JSON.stringify(savedTasks));
+    
+    // Refresh the dropdown UI so the new time shows up instantly
+    loadTasksIntoDropdown();
+
+    // Make sure the dropdown stays on the task they were just working on
+    taskSelect.value = selectedIndex;
+
+    // Update the text display below the dropdown
+    const timeSpentValue = document.getElementById("timeSpentValue")
+    if (timeSpentValue) {
+        timeSpentValue.textContent = savedTasks[selectedIndex].timeSpent;
+    }
+};
+
 /**
  * Updates the text content of the currently active timer display.
  * @param {number} timeInSeconds - The time to display.
@@ -147,6 +192,10 @@ function countdown() {
 
 
     if (timeLeft <= 0) {
+
+        // Update the task before stopping the timer
+        addTimeToSelectedTask();
+
         stopTimer(); // Clear interval and reset state
         updateDisplay(0);
 
