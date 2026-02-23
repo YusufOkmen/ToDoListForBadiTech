@@ -1,25 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 
 
-body 
-{
-    animation: fadeIn 0.7s ease-in forwards;
+.slide-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #E07951;
+    z-index: 9999; 
+    
+    animation: slideReveal 1s ease-in-out forwards;
 }
 
-@keyframes fadeIn {
+@keyframes slideReveal {
     from {
-        opacity: 0;
+        transform: translateY(0);
     }
     to {
-        opacity: 1;
+        transform: translateY(100%);
     }
 }
 
-/* 2. The Exit Class (Triggered by JavaScript) */
-.fadeOut
-{
-    opacity: 0 !important;
-    transition: all 0.4 ease-out;
+/* 2. The Exit Class (Triggered by JavaScript when leaving the page) */
+.slide-cover {
+    /* When triggered, it resets instantly to the left side, then slides IN to cover the screen */
+    animation: slideCover 1s ease-in-out forwards;
+}
+
+@keyframes slideCover {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
 }
 
 * 
