@@ -257,9 +257,10 @@ function dismissAlarm() {
     stopButton.style.display = "block";
     startButton.textContent = "START";
 
-    // 5. Reset the timer value (rewind the clock)
+        // 5. Reset the timer value (rewind the clock)
     timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
     updateDisplay(timeLeft);
+    //
 }
 
 // --- Event Handlers ---
