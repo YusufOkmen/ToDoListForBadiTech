@@ -254,6 +254,8 @@ function dismissAlarm() {
 
     // 4. Show the Start button again
     startButton.style.display = "block";
+    startButton.style.opacity = "1";
+    startButton.style.pointerEvents = "auto";   
     stopButton.style.display = "block";
     startButton.textContent = "START";
 

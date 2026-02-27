@@ -39,25 +39,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const loadTaskFromLocalStorage = () => {
         const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
-        savedTasks.forEach(({ text, completed }) => addTask(text, completed));
+        savedTasks.forEach(task => {
+            addTask(task.text, task.completed, task.timeSpent);
+        });
         toggleEmptyState();
     }
 
     const saveTaskLocalStorage = () => {
         const tasks = Array.from(taskList.querySelectorAll("li")).map(li => ({
             text: li.querySelector("span").textContent,
-            completed: li.querySelector(".checkbox").checked
+            completed: li.querySelector(".checkbox").checked,
+            timeSpent: parseInt(li.dataset.timeSpent) || 0
         }))
         localStorage.setItem(userTasksKey, JSON.stringify(tasks));
     };
 
-    const addTask = (text, completed = false) => {
+    const addTask = (text, completed = false, timeSpent = 0) => {
         const taskText = text || taskInput.value.trim();
         if (!taskText) {
             return;
         }
 
         const li = document.createElement("li");
+
+        li.dataset.timeSpent = timeSpent;
+
         li.innerHTML = `
             <input type="checkbox" class="checkbox" ${completed ? "checked" : " "}>
             <span>${taskText}</span>
