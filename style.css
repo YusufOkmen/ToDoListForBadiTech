@@ -75,6 +75,7 @@ body
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    grid-column: 2;
     gap: 30px;
     color: white;
     border-radius: 20px;
@@ -254,7 +255,8 @@ body
     border-radius: 0 0 10px 10px; /* Keep bottom corners rounded, remove top corners */
     /* Ensure the background and border still look good */
     backdrop-filter: blur(8px);
-    background: #E07951; 
+    background: rgba(255, 255, 255, 0.3); 
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     border-left: 1px solid rgba(255, 255, 255, 0.2);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
@@ -265,7 +267,7 @@ body
 
 .user-info {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255);
     /* Make the email prominent */
     font-weight: 500; 
 }
@@ -275,14 +277,13 @@ body
     border-radius: 15px;
     color: white;
     font-size: 0.9rem;
-    background: rgba(255, 255, 255, 0.458);
+    background: rgb(222, 134, 124);
     border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .logoutBtn:hover {
-    background:     rgb(222, 115, 115); /* Use a bold color for logout */
     border-color: rgb(215, 57, 57);
     transform: scale(1.1);
 }
@@ -360,7 +361,7 @@ body
     border-radius: 6px;
     color: white;
     font-size: 1.1rem;
-    background: rgb(222, 115, 115);
+    background: rgb(222, 134, 124);
     border: 2px solid rgba(255, 255, 255, 0.18);
     cursor: pointer;
     transition: all 0.2s ease;
@@ -499,9 +500,9 @@ main
     left: 20px;
 
     /* 2. visual Style (Matches your Add Button) */
-    background-color: rgb(207, 107, 60);
+    background-color: rgb(222, 134, 124);
     color: white;
-    border: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 10px 15px;
     border-radius: 5px; /* Rounded corners */
     font-size: 16px;
@@ -518,8 +519,8 @@ main
 
 /* Hover Effect */
 .go-back-btn:hover {
-    background-color: rgb(176, 59, 5); /* Slightly darker purple */
     transform: scale(1.05); /* Slight zoom effect */
+    border-color: rgb(215, 57, 57);
 }
 
 .taskManagerButton
@@ -576,7 +577,7 @@ main
     padding: 20px;
     border-radius: 15px;
     width: 80%;
-    max-width: 400px;
+    max-width: 300px;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
