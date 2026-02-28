@@ -43,18 +43,21 @@
         </div>
     </div>
 
-    <div class="taskSelectorContainer">
-        <label for="activeTaskSelect">Working on:</label>
-        <select id="activeTaskSelect">
-            <option value="">-- Select a task --</option>
-        </select>
 
-        <p id="taskTimeDisplay" style="display: none;">
-            Time spent: <span id="timeSpentValue">0</span> minutes
-        </p>
-    </div>
 
     <div class="container">
+
+        <div class="taskSelectorContainer">
+            <label for="activeTaskSelect">Working on:</label>
+            <select id="activeTaskSelect">
+                <option value="">-- No Task Selected --</option>
+            </select>
+
+            <p id="taskTimeDisplay" style="display: none;">
+                Time spent: <span id="timeSpentValue">0</span> minutes
+            </p>
+        </div>
+
         <div class="todoApp pomodoroApp">
 
             <h1>Pomodoro</h1>
@@ -80,8 +83,7 @@
             <div class="buttons">
                 <button class="pomodoroButton start-stop-btn" id="start">START</button>
                 <button class="pomodoroButton start-stop-btn" id="stop">STOP</button>
-                <button id="stop-alarm-btn"
-                    class="pomodoroButton start-stop-btn" style="display: none;">
+                <button id="stop-alarm-btn" class="pomodoroButton start-stop-btn" style="display: none;">
                     REWIND
                 </button>
             </div>

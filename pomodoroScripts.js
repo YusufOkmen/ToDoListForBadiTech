@@ -29,7 +29,7 @@ function loadTasksIntoDropdown() {
     const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
 
     //Clear existing options (except the default one)
-    taskSelect.innerHTML = '<option value="">-- Select a task --</option>';
+    taskSelect.innerHTML = '<option value="">-- No Task Selected --</option>';
 
     //Loop through tasks and only add the ones that are not completed
     savedTasks.forEach((task, index) => {
