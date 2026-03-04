@@ -8,6 +8,7 @@ const taskSelect = document.getElementById("activeTaskSelect");
 const taskTimeDisplay= document.getElementById("taskTimeDisplay")
 const timeSpentValue = document.getElementById("timeSpentValue");
 
+
 //Get the current user to find their specific tasks
 const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
 const userTasksKey = currentUser ? `tasks_${currentUser.email}` : "null";
@@ -299,3 +300,40 @@ if (stopButton) {
         startButton.style.pointerEvents = "auto";
     });
 }
+
+// Analytics
+const openAnalyticsBtn = document.getElementById("openAnalyticsBtn");
+const closeAnalyticsBtn = document.getElementById("closeAnalyticsBtn");
+const analyticsModal = document.getElementById("analyticsModal");
+
+document.addEventListener("DOMContentLoaded", () => {
+    const openAnalyticsBtn = document.getElementById("openAnalyticsBtn");
+    const closeAnalyticsBtn = document.getElementById("closeAnalyticsBtn");
+    const analyticsModal = document.getElementById("analyticsModal");
+
+    // 🕵️ DEBUGGING: Let's ask the browser what it found
+    console.log("Open Button:", openAnalyticsBtn);
+    console.log("Close Button:", closeAnalyticsBtn);
+    console.log("Modal:", analyticsModal);
+
+    if (openAnalyticsBtn && closeAnalyticsBtn && analyticsModal) {
+        // Open the modal
+        openAnalyticsBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Good practice: stops any weird button defaults
+            analyticsModal.style.display = 'flex';
+        });
+
+        closeAnalyticsBtn.addEventListener('click', () => {
+            analyticsModal.style.display = 'none';
+        });
+
+        analyticsModal.addEventListener('click', (e) => {
+            if (e.target === analyticsModal) {
+                analyticsModal.style.display = 'none';
+            }
+        });
+    } else {
+        // If one of them is missing, it will shout at us in red!
+        console.error("🚨 ERROR: One of the Analytics elements is missing from the DOM!");
+    }
+});
