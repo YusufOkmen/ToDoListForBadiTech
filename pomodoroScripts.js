@@ -5,7 +5,7 @@ const stopButton = document.getElementById('stop');
 const alarmSound = document.getElementById('alarm-sound');
 const stopAlarmBtn = document.getElementById('stop-alarm-btn');
 const taskSelect = document.getElementById("activeTaskSelect");
-const taskTimeDisplay= document.getElementById("taskTimeDisplay")
+const taskTimeDisplay = document.getElementById("taskTimeDisplay")
 const timeSpentValue = document.getElementById("timeSpentValue");
 
 
@@ -55,7 +55,7 @@ function loadTasksIntoDropdown() {
 loadTasksIntoDropdown();
 
 taskSelect.addEventListener("change", (e) => {
-    const selectedOption =taskSelect.options[taskSelect.selectedIndex];
+    const selectedOption = taskSelect.options[taskSelect.selectedIndex];
 
     if (taskSelect.value === "") {
         //If they select the default, hide the time
@@ -101,7 +101,7 @@ function addTimeToSelectedTask() {
 
     // Save the updated list back into LocalStorage
     localStorage.setItem(userTasksKey, JSON.stringify(savedTasks));
-    
+
     // Refresh the dropdown UI so the new time shows up instantly
     loadTasksIntoDropdown();
 
@@ -256,11 +256,11 @@ function dismissAlarm() {
     // 4. Show the Start button again
     startButton.style.display = "block";
     startButton.style.opacity = "1";
-    startButton.style.pointerEvents = "auto";   
+    startButton.style.pointerEvents = "auto";
     stopButton.style.display = "block";
     startButton.textContent = "START";
 
-        // 5. Reset the timer value (rewind the clock)
+    // 5. Reset the timer value (rewind the clock)
     timeLeft = parseInt(currentTimerElement.dataset.duration) * 60;
     updateDisplay(timeLeft);
     //
@@ -301,7 +301,7 @@ if (stopButton) {
     });
 }
 
-// Analytics
+// Analytics *Start*
 const openAnalyticsBtn = document.getElementById("openAnalyticsBtn");
 const closeAnalyticsBtn = document.getElementById("closeAnalyticsBtn");
 const analyticsModal = document.getElementById("analyticsModal");
@@ -320,6 +320,9 @@ document.addEventListener("DOMContentLoaded", () => {
         // Open the modal
         openAnalyticsBtn.addEventListener('click', (e) => {
             e.preventDefault(); // Good practice: stops any weird button defaults
+
+            generateAnalytics();
+
             analyticsModal.style.display = 'flex';
         });
 
@@ -337,3 +340,85 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("🚨 ERROR: One of the Analytics elements is missing from the DOM!");
     }
 });
+
+
+// Variable to remember the chart so we can erase it and redraw it cleanly
+let focusChartInstance = null;
+
+function generateAnalytics() {
+    // fetch the logged-in user's tasks from LocalStorage
+    const currentUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (!currentUser) {
+        return;
+    };
+
+    const userTasksKey = `tasks_${currentUser.email}`;
+    const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
+
+    // Prepare data arrays
+    let totalMinutes = 0;
+    const taskNames = [];
+    const taskTimes = [];
+
+    savedTasks.forEach(task => {
+        const time = parseInt(task.timeSpent) || 0;
+        totalMinutes += time;
+
+        // We only want to graph tasks that actually have time spent on them
+        if (time > 0) {
+            taskNames.push(task.text);
+            taskTimes.push(time);
+        }
+    });
+
+    // Update the KPI Scoreboard 
+    const totalDisplay = document.getElementById("totalFocusTimeDisplay");
+    if (totalDisplay) {
+        totalDisplay.textContent = `${totalMinutes} minute${totalMinutes === 1 ? '' : 's'}`;
+    }
+
+    // Draw the chart.js graph
+    const canvas = document.getElementById("focusChart");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    // If a chart already exists, destroy it before drawing a new one
+    if (focusChartInstance) {
+        focusChartInstance.destroy();
+    }
+
+    // Paint the new chart
+    focusChartInstance = new Chart(ctx, {
+        type: "bar", // A clean, vertical bar chart
+        data: {
+            labels: taskNames, // The X-axis
+            datasets: [{
+                label: "Minutes Focused",
+                data: taskTimes, // The Y-axis
+                backgroundColor: "rgb(222, 134, 124, 0.5)",
+                borderColor: "rgb(222, 134, 124, 1)",
+                borderWidth: 1,
+                borderRadius: 6
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: "rgb(255, 255, 255, 0.1)" },
+                    ticks: { color: "#e0e0e0", stepSize: 5 }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { color: "#e0e0e0" }
+                }
+            },
+            plugins: {
+                legend: {display: false } // Hide the top legend for a cleaner UI
+            }
+        }
+    });
+}
