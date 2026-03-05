@@ -360,6 +360,10 @@ function generateAnalytics() {
     const taskNames = [];
     const taskTimes = [];
 
+    // Variables to trach the champion task
+    let maxTaskName = "No tasks yet";
+    let maxTaskTime = 0;
+
     savedTasks.forEach(task => {
         const time = parseInt(task.timeSpent) || 0;
         totalMinutes += time;
@@ -369,12 +373,30 @@ function generateAnalytics() {
             taskNames.push(task.text);
             taskTimes.push(time);
         }
+
+        // Trach the most time spent task
+        if (time > maxTaskTime) {
+            maxTaskTime = time;
+            maxTaskName = task.text;
+        }
     });
 
     // Update the KPI Scoreboard 
     const totalDisplay = document.getElementById("totalFocusTimeDisplay");
     if (totalDisplay) {
         totalDisplay.textContent = `${totalMinutes} minute${totalMinutes === 1 ? '' : 's'}`;
+    }
+
+    // Update the Most Time Spent KPI Scoreboard
+    const mostTimeDisplay = document.getElementById("mostTimeSpentTask");
+    const mostTimeDisplayTime = document.getElementById("mostTimeSpentTaskTime");
+    if (mostTimeDisplay) {
+        if (maxTaskTime > 0) {
+            mostTimeDisplay.textContent = `Task Name: ${maxTaskName}`;
+            mostTimeDisplayTime.textContent = `Task Duration: ${maxTaskTime} minutes`
+        } else {
+            mostTimeDisplay.textContent = "0 minutes";
+        }
     }
 
     // Draw the chart.js graph
