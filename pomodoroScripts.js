@@ -413,7 +413,16 @@ function generateAnalytics() {
                 },
                 x: {
                     grid: { display: false },
-                    ticks: { color: "#e0e0e0" }
+                    ticks: { color: "#e0e0e0",
+                        maxRotation: 0, // Forces the text to sit perfectly flat, no diagonal tilt!
+                        minRotation: 0,
+                        callback: function(value) {
+                            const label = this.getLabelForValue(value);
+                            // If the name is logner than 12 characters, cut it and add "..."
+                            return label.length > 12 ? label.substring(0,12) + "..." : label;
+                        }
+
+                     }
                 }
             },
             plugins: {
