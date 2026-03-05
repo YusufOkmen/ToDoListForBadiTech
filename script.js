@@ -33,14 +33,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const toggleEmptyState = () => {
         // Makes empty image display and disappear
-        emptyImage.style.display = taskList.children.length === 0 ? "block" : "none";
+        const visibleTasks = taskList.querySelectorAll("li:not(.archivedTask)").length;
+        emptyImage.style.display = visibleTasks === 0 ? "block" : "none";
         // Controls the width of the todosContainer based on the listed tasks
     }
 
     const loadTaskFromLocalStorage = () => {
         const savedTasks = JSON.parse(localStorage.getItem(userTasksKey)) || [];
         savedTasks.forEach(task => {
-            addTask(task.text, task.completed, task.timeSpent);
+            addTask(task.text, task.completed, task.timeSpent, task.archived);
         });
         toggleEmptyState();
     }
@@ -49,12 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const tasks = Array.from(taskList.querySelectorAll("li")).map(li => ({
             text: li.querySelector("span").textContent,
             completed: li.querySelector(".checkbox").checked,
-            timeSpent: parseInt(li.dataset.timeSpent) || 0
+            timeSpent: parseInt(li.dataset.timeSpent) || 0,
+            archived: li.classList.contains("archivedTask") // Save the archived task
         }))
         localStorage.setItem(userTasksKey, JSON.stringify(tasks));
     };
 
-    const addTask = (text, completed = false, timeSpent = 0) => {
+    const addTask = (text, completed = false, timeSpent = 0, archived = false) => {
         const taskText = text || taskInput.value.trim();
         if (!taskText) {
             return;
@@ -63,6 +65,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const li = document.createElement("li");
 
         li.dataset.timeSpent = timeSpent;
+
+        // if it's archived, make it invisible 
+        if (archived) {
+            li.classList.add("archivedTask");
+            li.style.display = "none";
+        }
 
         li.innerHTML = `
             <input type="checkbox" class="checkbox" ${completed ? "checked" : " "}>
@@ -107,7 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
         })
 
         deleteBtn.addEventListener("click", () => {
-            li.remove();
+            li.dataset.archived = "true";
+            li.classList.add("archivedTask");
+            li.style.display = "none";
             toggleEmptyState();
             saveTaskLocalStorage();
         });
@@ -160,6 +170,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         //Starting the loop
         allTasks.forEach(task => {
+
+            // If it is archived, keep it hidden and skip the rest of the loop
+            if (task.classList.contains === "archivedTask") {
+                task.style.display = "none";
+                return;
+            }
+
             //Asking if the task is completed
             const isCompleted = task.classList.contains("completed");
 
