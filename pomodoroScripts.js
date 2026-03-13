@@ -34,6 +34,11 @@ function loadTasksIntoDropdown() {
 
     //Loop through tasks and only add the ones that are not completed
     savedTasks.forEach((task, index) => {
+
+        if (task.archived) {
+            return;
+        }
+
         if (!task.completed) {
             const option = document.createElement("option");
             option.value = index; //We use the array index to identify the task later
