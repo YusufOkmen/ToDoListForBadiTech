@@ -201,7 +201,9 @@ body
 {
     flex: 1;
     margin-left: 10px;
-    word-wrap: break-word;
+    min-width: 0;
+    word-break: break-all;
+    overflow-wrap: break-word;
 }
 
 .taskButtons
